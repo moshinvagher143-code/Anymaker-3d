@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnyMaker 3D | Custom 3D Printing & Fabrication</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              cyan: '#06b6d4',
+              cyanHover: '#0891b2',
+              indigo: '#6366f1',
+              violet: '#8b5cf6',
+              dark: '#090d16',
+              card: '#0f172a',
+              cardBorder: 'rgba(56, 189, 248, 0.15)',
+            }
+          },
+          boxShadow: {
+            glow: '0 0 25px -5px rgba(6, 182, 212, 0.35)',
+            glowIndigo: '0 0 25px -5px rgba(99, 102, 241, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-nav {
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    /* Hide scrollbar for category tabs */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-slate-200 font-sans antialiased grid-pattern min-h-screen relative selection:bg-cyan-500 selection:text-white">
+
+  <!-- Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform duration-300">
+          <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <span class="text-xl font-bold font-display tracking-tight text-white flex items-center gap-1">
+            AnyMaker<span class="text-cyan-400">3D</span>
+          </span>
+          <span class="block text-[10px] tracking-widest uppercase text-slate-400 font-semibold -mt-1">Precision Lab</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#hero" class="hover:text-cyan-400 transition-colors">Home</a>
+        <a href="#catalog" class="hover:text-cyan-400 transition-colors">Products & Catalog</a>
+        <a href="#calculator" class="hover:text-cyan-400 transition-colors">Instant Quote</a>
+        <a href="#features" class="hover:text-cyan-400 transition-colors">Why Choose Us</a>
+        <a href="#reviews" class="hover:text-cyan-400 transition-colors">Reviews</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Header Action CTA -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="https://wa.me/919876543210?text=Hi%20AnyMaker%203D!%20I%20have%20an%20inquiry%20for%20a%20custom%203D%20print." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-emerald-950/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>WhatsApp Us</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" aria-label="Toggle menu" class="md:hidden p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
+        <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pt-3 pb-6 bg-[#0c121e] border-b border-slate-800 space-y-3">
+      <a href="#hero" class="block py-2 text-slate-300 hover:text-cyan-400 border-b border-slate-800/60 mobile-nav-link">Home</a>
+      <a href="#catalog" class="block py-2 text-slate-300 hover:text-cyan-400 border-b border-slate-800/60 mobile-nav-link">Products & Catalog</a>
+      <a href="#calculator" class="block py-2 text-slate-300 hover:text-cyan-400 border-b border-slate-800/60 mobile-nav-link">Instant Quote</a>
+      <a href="#features" class="block py-2 text-slate-300 hover:text-cyan-400 border-b border-slate-800/60 mobile-nav-link">Why Choose Us</a>
+      <a href="#reviews" class="block py-2 text-slate-300 hover:text-cyan-400 border-b border-slate-800/60 mobile-nav-link">Reviews</a>
+      <a href="#contact" class="block py-2 text-slate-300 hover:text-cyan-400 mobile-nav-link">Contact</a>
+      <div class="pt-2">
+        <a href="https://wa.me/919876543210?text=Hi%20AnyMaker%203D!%20I%20have%20an%20inquiry%20for%20a%20custom%203D%20print." target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white py-3 rounded-xl text-sm font-semibold">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Direct WhatsApp Order</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden relative">
+    <!-- Gradient background orbs -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-r from-cyan-600/20 via-indigo-600/20 to-purple-600/10 blur-[120px] pointer-events-none -z-10"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Left Column Text -->
+        <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 text-xs font-semibold tracking-wide uppercase shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            Next-Gen Rapid Additive Fabrication
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-white tracking-tight leading-[1.15]">
+            Bring Your Ideas into Reality with <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Custom 3D Printing</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            From precision functional prototypes & bespoke automotive parts to glowing LED shadow boxes, cosplay gear, and personalized keychains — engineered with industrial accuracy.
+          </p>
+
+          <!-- Quick Feature Badges -->
+          <div class="flex flex-wrap justify-center lg:justify-start gap-2 pt-2">
+            <span class="px-3 py-1 bg-slate-800/80 border border-slate-700/80 rounded-lg text-xs text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i> High-Grade PLA / PETG / TPU
+            </span>
+            <span class="px-3 py-1 bg-slate-800/80 border border-slate-700/80 rounded-lg text-xs text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i> ±0.1mm Precision
+            </span>
+            <span class="px-3 py-1 bg-slate-800/80 border border-slate-700/80 rounded-lg text-xs text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i> Fast India-wide Dispatch
+            </span>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            <a href="#calculator" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-7 py-3.5 rounded-xl font-semibold shadow-glow hover:scale-[1.02] active:scale-[0.98] transition-all">
+              <i data-lucide="calculator" class="w-5 h-5"></i>
+              <span>Estimate Cost & Order</span>
+            </a>
+            <a href="#catalog" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 px-6 py-3.5 rounded-xl font-medium hover:border-slate-500 transition-all">
+              <i data-lucide="grid" class="w-5 h-5"></i>
+              <span>Explore Products</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Right Column Visual Showcase Graphic -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-md rounded-2xl bg-gradient-to-b from-slate-800 to-slate-900/90 border border-slate-700/80 p-6 shadow-2xl backdrop-blur">
+            <!-- Terminal Header Decoration -->
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              </div>
+              <span class="font-mono text-cyan-400">AnyMaker Core v3.4 • Online</span>
+            </div>
+
+            <!-- Stylized 3D Print Simulation Artwork -->
+            <div class="my-6 py-8 px-4 rounded-xl bg-slate-950/70 border border-slate-800 flex flex-col items-center justify-center relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-indigo-500/10 pointer-events-none"></div>
+              
+              <!-- Laser / Extruder Nozzle simulation -->
+              <div class="relative z-10 w-24 h-24 mb-4 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full border border-cyan-500/40 animate-ping opacity-25"></div>
+                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500 via-indigo-600 to-slate-900 p-0.5 shadow-glow flex items-center justify-center transform rotate-6 hover:rotate-0 transition-transform duration-500">
+                  <div class="w-full h-full bg-[#0b101c] rounded-2xl flex flex-col items-center justify-center">
+                    <i data-lucide="box" class="w-10 h-10 text-cyan-400"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center z-10">
+                <p class="text-sm font-semibold text-white">Custom Fabrication Engine</p>
+                <p class="text-xs text-slate-400 mt-0.5">Dual-gear Direct Drive • 0.08mm Layer Resolution</p>
+              </div>
+
+              <!-- Layer Progress Mock -->
+              <div class="w-full mt-5 space-y-1.5">
+                <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+                  <span>Layer 248 / 310</span>
+                  <span class="text-cyan-400">80% Infill Completed</span>
+                </div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 w-[80%] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fast Spec Highlights -->
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-800/50 border border-slate-800">
+                <div class="font-bold text-white font-mono">0.08mm</div>
+                <div class="text-slate-400 text-[10px]">Min Layer</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-800/50 border border-slate-800">
+                <div class="font-bold text-cyan-400 font-mono">300°C</div>
+                <div class="text-slate-400 text-[10px]">High Temp Eng</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-800/50 border border-slate-800">
+                <div class="font-bold text-emerald-400 font-mono">24h - 48h</div>
+                <div class="text-slate-400 text-[10px]">Lead Time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instant Quote Calculator Section -->
+  <section id="calculator" class="py-20 bg-slate-950/60 border-y border-slate-800/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Transparent Pricing</span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-display text-white mt-3">Instant Cost Estimator</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">Pick your requirements below for an immediate ballpark price, then transfer specifications directly to WhatsApp for rapid printing.</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Form Inputs -->
+          <div class="space-y-5">
+            <!-- 1. Product Type -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">1. Item Category</label>
+              <select id="calcType" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 transition">
+                <option value="keychain">Personalized Keychain / Badge / Tag</option>
+                <option value="ledbox">Illuminated LED Shadow Box</option>
+                <option value="auto">Bespoke Automotive Mount / Fitting</option>
+                <option value="prototype" selected>Functional Prototype / Engineering Component</option>
+                <option value="cosplay">Cosplay Prop / Replica Decor</option>
+              </select>
+            </div>
+
+            <!-- 2. Material -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">2. Filament Material</label>
+              <div class="grid grid-cols-3 gap-2" id="materialSelector">
+                <button type="button" data-mat="PLA" class="mat-btn active border-cyan-400 bg-cyan-950/40 text-cyan-300 border rounded-xl py-2.5 px-3 text-xs font-semibold text-center transition">
+                  PLA+
+                  <span class="block text-[10px] text-slate-400 font-normal">Standard Detail</span>
+                </button>
+                <button type="button" data-mat="PETG" class="mat-btn border-slate-800 bg-slate-950 text-slate-400 border rounded-xl py-2.5 px-3 text-xs font-semibold text-center hover:border-slate-600 transition">
+                  PETG
+                  <span class="block text-[10px] text-slate-400 font-normal">Heat & UV Resistant</span>
+                </button>
+                <button type="button" data-mat="TPU" class="mat-btn border-slate-800 bg-slate-950 text-slate-400 border rounded-xl py-2.5 px-3 text-xs font-semibold text-center hover:border-slate-600 transition">
+                  TPU
+                  <span class="block text-[10px] text-slate-400 font-normal">Rubber / Flexible</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Size Tier -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">3. Approximate Volume / Size</label>
+              <div class="grid grid-cols-3 gap-2" id="sizeSelector">
+                <button type="button" data-size="small" class="size-btn border-slate-800 bg-slate-950 text-slate-400 border rounded-xl py-2.5 px-2 text-xs font-semibold text-center hover:border-slate-600 transition">
+                  Small
+                  <span class="block text-[10px] text-slate-400 font-normal">&lt; 8 cm</span>
+                </button>
+                <button type="button" data-size="medium" class="size-btn active border-cyan-400 bg-cyan-950/40 text-cyan-300 border rounded-xl py-2.5 px-2 text-xs font-semibold text-center transition">
+                  Medium
+                  <span class="block text-[10px] text-slate-400 font-normal">8 - 16 cm</span>
+                </button>
+                <button type="button" data-size="large" class="size-btn border-slate-800 bg-slate-950 text-slate-400 border rounded-xl py-2.5 px-2 text-xs font-semibold text-center hover:border-slate-600 transition">
+                  Large
+                  <span class="block text-[10px] text-slate-400 font-normal">16 - 25 cm</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Infill Density & Finish -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Infill Density</label>
+                <select id="calcInfill" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-cyan-400">
+                  <option value="light">20% (Decorative)</option>
+                  <option value="medium" selected>50% (Standard Rigid)</option>
+                  <option value="heavy">90% (Heavy Duty Mechanical)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Quantity</label>
+                <input type="number" id="calcQty" value="1" min="1" max="100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-cyan-400">
+              </div>
+            </div>
+          </div>
+
+          <!-- Estimation Summary & Action -->
+          <div class="bg-slate-950/90 border border-slate-800/90 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                <span class="text-xs text-slate-400 uppercase font-semibold">Quote Calculation</span>
+                <span class="text-[11px] bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800/40">Includes Base Prep</span>
+              </div>
+
+              <!-- Price Display -->
+              <div class="my-6 text-center">
+                <span class="text-xs text-slate-400 uppercase tracking-wider">Estimated Total</span>
+                <div class="flex items-baseline justify-center gap-1 mt-1">
+                  <span class="text-2xl text-cyan-400 font-bold">₹</span>
+                  <span id="estimatedPrice" class="text-5xl font-extrabold font-display text-white tracking-tight">450</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-2">*Excluding shipping. Bulk orders automatically receive additional concessions upon direct WhatsApp review.</p>
+              </div>
+
+              <!-- Spec Breakdown Recap -->
+              <div class="space-y-2 text-xs text-slate-300 bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80 font-mono">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Item:</span>
+                  <span id="recapItem" class="font-semibold text-white">Functional Prototype</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Material & Infill:</span>
+                  <span id="recapSpec" class="font-semibold text-cyan-300">PLA+ (50% Infill)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Scale:</span>
+                  <span id="recapScale" class="font-semibold text-white">Medium (8-16cm)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Batch:</span>
+                  <span id="recapQty" class="font-semibold text-white">1 Unit(s)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- WhatsApp Order Submit Button -->
+            <button id="sendQuoteWhatsapp" class="mt-6 w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-semibold flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/30 active:scale-[0.98] transition-all">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send Specs to WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Showcase / Catalog Section -->
+  <section id="catalog" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Portfolio & Offerings</span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-white mt-3">Featured Creations</h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">Choose from our popular categories or place a custom personalized order.</p>
+        </div>
+
+        <!-- Filter Badges -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 pt-2" id="filterContainer">
+          <button data-filter="all" class="filter-btn active whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-white shadow-glow transition">All</button>
+          <button data-filter="led" class="filter-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-slate-700 transition">LED & Lightboxes</button>
+          <button data-filter="keychain" class="filter-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-slate-700 transition">Keychains & Badges</button>
+          <button data-filter="auto" class="filter-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-slate-700 transition">Auto Accessories</button>
+          <button data-filter="prototype" class="filter-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-slate-700 transition">Prototyping & Props</button>
+        </div>
+      </div>
+
+      <!-- Catalog Cards Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="productGrid">
+        
+        <!-- Card 1: LED Shadow Box -->
+        <div class="product-card group rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-glow" data-category="led">
+          <div class="h-48 bg-gradient-to-tr from-purple-950 via-slate-900 to-indigo-950 flex items-center justify-center relative overflow-hidden p-6">
+            <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-purple-500/20 to-pink-500/30 border border-purple-400/40 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="sun-medium" class="w-12 h-12 text-pink-400 animate-pulse"></i>
+            </div>
+            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-purple-900/60 text-purple-300 border border-purple-700/50">LED Illuminated</span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h3 class="font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Custom Anime / Gaming LED Box</h3>
+                <span class="text-sm font-bold text-cyan-400 font-mono">₹1,199</span>
+              </div>
+              <p class="text-xs text-slate-400 line-clamp-2">Multi-layered backlit lightbox with remote-controlled RGB lights, custom silhouette art, and USB 5V power.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20AnyMaker%203D!%20I%20want%20to%20order%20the%20Custom%20LED%20Shadow%20Box." target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent transition-all">
+              <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+              <span>Order via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Custom Keychains -->
+        <div class="product-card group rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-glow" data-category="keychain">
+          <div class="h-48 bg-gradient-to-tr from-cyan-950 via-slate-900 to-sky-950 flex items-center justify-center relative overflow-hidden p-6">
+            <div class="w-24 h-24 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="key" class="w-12 h-12 text-cyan-400"></i>
+            </div>
+            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-cyan-900/60 text-cyan-300 border border-cyan-700/50">Personalized</span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h3 class="font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Embossed Dual-Color Keychains</h3>
+                <span class="text-sm font-bold text-cyan-400 font-mono">₹149</span>
+              </div>
+              <p class="text-xs text-slate-400 line-clamp-2">High-contrast nameplates, vehicle license plates, logo tags, and Spotify code keyrings with reinforced loop links.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20AnyMaker%203D!%20I%20want%20to%20order%20Custom%20Embossed%20Keychains." target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent transition-all">
+              <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+              <span>Order via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Automotive Accessories -->
+        <div class="product-card group rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-glow" data-category="auto">
+          <div class="h-48 bg-gradient-to-tr from-amber-950 via-slate-900 to-orange-950 flex items-center justify-center relative overflow-hidden p-6">
+            <div class="w-24 h-24 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="gauge" class="w-12 h-12 text-amber-400"></i>
+            </div>
+            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-amber-900/60 text-amber-300 border border-amber-700/50">PETG Heat-Resistant</span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h3 class="font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Custom Vehicle Phone Mount & Pods</h3>
+                <span class="text-sm font-bold text-cyan-400 font-mono">₹599</span>
+              </div>
+              <p class="text-xs text-slate-400 line-clamp-2">Tailored dashboard mounts, vent clips, coin organizers, and cup holder extenders designed for high-cabin heat.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20AnyMaker%203D!%20I%20want%20custom%20Automotive%20Accessories." target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent transition-all">
+              <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+              <span>Order via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4: Rapid Functional Prototyping -->
+        <div class="product-card group rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-glow" data-category="prototype">
+          <div class="h-48 bg-gradient-to-tr from-blue-950 via-slate-900 to-cyan-950 flex items-center justify-center relative overflow-hidden p-6">
+            <div class="w-24 h-24 rounded-2xl bg-blue-500/10 border border-blue-400/30 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="cpu" class="w-12 h-12 text-blue-400"></i>
+            </div>
+            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-blue-900/60 text-blue-300 border border-blue-700/50">Engineering Grade</span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h3 class="font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Functional Engineering Enclosures</h3>
+                <span class="text-sm font-bold text-cyan-400 font-mono">From ₹350</span>
+              </div>
+              <p class="text-xs text-slate-400 line-clamp-2">IoT project enclosures, PCB housings, robotic brackets, gear assemblies, and snap-fit mechanisms.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20AnyMaker%203D!%20I%20have%20an%20engineering%20prototype%20file%20to%20print." target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent transition-all">
+              <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+              <span>Order via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 5: Cosplay Props -->
+        <div class="product-card group rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-glow" data-category="prototype">
+          <div class="h-48 bg-gradient-to-tr from-emerald-950 via-slate-900 to-teal-950 flex items-center justify-center relative overflow-hidden p-6">
+            <div class="w-24 h-24 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="shield" class="w-12 h-12 text-emerald-400"></i>
+            </div>
+            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">Scale Replica</span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h3 class="font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Cosplay Helmets & Replica Props</h3>
+                <span class="text-sm font-bold text-cyan-400 font-mono">From ₹1,499</span>
+              </div>
+              <p class="text-xs text-slate-400 line-clamp-2">Lightweight wearable helmets, game daggers, wands, and mask shells pre-sanded or raw ready for painting.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20AnyMaker%203D!%20I%20want%20to%20order%20a%20Cosplay%20Prop." target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent transition-all">
+              <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+              <span>Order via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 6: Lithophane Photo Lamp -->
+        <div class="product-card group rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-glow" data-category="led">
+          <div class="h-48 bg-gradient-to-tr from-indigo-950 via-slate-900 to-rose-950 flex items-center justify-center relative overflow-hidden p-6">
+            <div class="w-24 h-24 rounded-2xl bg-indigo-500/10 border border-indigo-400/30 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="image" class="w-12 h-12 text-indigo-400"></i>
+            </div>
+            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-indigo-900/60 text-indigo-300 border border-indigo-700/50">Custom Gift</span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h3 class="font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Lithophane 3D Photo Night Lamp</h3>
+                <span class="text-sm font-bold text-cyan-400 font-mono">₹899</span>
+              </div>
+              <p class="text-xs text-slate-400 line-clamp-2">Turn memorable personal photographs into magical illuminated relief lamps mounted on solid wooden/printed stands.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hello%20AnyMaker%203D!%20I%20want%20to%20order%20a%20Lithophane%20Photo%20Lamp." target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent transition-all">
+              <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+              <span>Order via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose AnyMaker 3D -->
+  <section id="features" class="py-20 bg-slate-950/70 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Engineering Excellence</span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-display text-white mt-3">Why Makers & Engineers Choose Us</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">We treat every print not just as plastic, but as a calibrated piece of functional design.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature 1 -->
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/40 transition group">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="crosshair" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Micron-Grade Precision</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Tight tolerance control (±0.1mm) ensures tight threading, clean interlocking tabs, and snap-fit precision.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-indigo-500/40 transition group">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Rapid 24-48h Turnaround</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Continuous farm printing delivers same-day slicing and express fabrication to meet critical project deadlines.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-purple-500/40 transition group">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="sliders" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Custom Sizing & Tuning</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Free slicer optimization, wall thickness balancing, and custom infill orientation for heavy structural loads.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/40 transition group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Industrial Grade Materials</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Virgin filament only — heat-tested PETG, high-tensile PLA+, and Shore 95A flexible TPU for rugged durability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Maker Trust</span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-display text-white mt-3">Loved by Creators & Teams</h2>
+        <p class="text-slate-400 text-sm mt-2">See what our clients say about their custom orders and prototype builds.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Review 1 -->
+        <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex text-amber-400 gap-1">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 italic">"AnyMaker 3D printed an intricate automotive gauge pod for my track car in PETG. It fits flush into the air vent and has survived high summer heat with zero warp!"</p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 mt-4 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-cyan-900/60 border border-cyan-700/60 flex items-center justify-center font-bold text-xs text-cyan-300">RK</div>
+            <div>
+              <p class="text-xs font-bold text-white">Rohit Kulkarni</p>
+              <p class="text-[10px] text-slate-400">Automotive Enthusiast, Pune</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex text-amber-400 gap-1">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 italic">"Ordered 45 customized company keychains with embossed QR codes. The layer lines are practically invisible and every single QR code scans instantly."</p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 mt-4 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-indigo-900/60 border border-indigo-700/60 flex items-center justify-center font-bold text-xs text-indigo-300">AS</div>
+            <div>
+              <p class="text-xs font-bold text-white">Ananya Sharma</p>
+              <p class="text-[10px] text-slate-400">Founding Member, TechNova</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex text-amber-400 gap-1">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 italic">"Got a custom RGB shadow box made for my brother's birthday. The craftsmanship and multi-tone diffuser layers are top notch. Arrived safely wrapped."</p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 mt-4 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-emerald-900/60 border border-emerald-700/60 flex items-center justify-center font-bold text-xs text-emerald-300">VP</div>
+            <div>
+              <p class="text-xs font-bold text-white">Vikram Patel</p>
+              <p class="text-[10px] text-slate-400">Graphic Designer, Ahmedabad</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Request Section -->
+  <section id="contact" class="py-20 bg-slate-950/80 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <!-- Contact Info -->
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Direct Inquiry</span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-white">Have an STL, STEP, or Sketch?</h2>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Send us your CAD file or drop your project specifications. We analyze the model geometry, verify printable tolerances, and deliver slicing feedback within hours.
+          </p>
+
+          <div class="space-y-4 pt-2">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400">
+                <i data-lucide="phone-call" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400">WhatsApp / Call</p>
+                <p class="text-sm font-semibold text-white">+91 98765 43210</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-indigo-400">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400">CAD & Order Mail</p>
+                <p class="text-sm font-semibold text-white">orders@anymaker3d.com</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-emerald-400">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400">Farm Printing Hours</p>
+                <p class="text-sm font-semibold text-white">Mon - Sat: 9:00 AM - 9:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Form -->
+        <div class="lg:col-span-7">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl relative">
+            <form id="contactForm" class="space-y-4">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-medium text-slate-300 mb-1.5">Full Name *</label>
+                  <input type="text" id="contactName" required placeholder="e.g. Rahul Verma" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-slate-300 mb-1.5">WhatsApp / Phone *</label>
+                  <input type="tel" id="contactPhone" required placeholder="+91 98765 00000" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-medium text-slate-300 mb-1.5">Service Requested</label>
+                  <select id="contactService" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition">
+                    <option value="Custom 3D Print from 3D File (.STL / .STEP / .OBJ)">Custom Print from 3D File</option>
+                    <option value="Personalized LED Light Box">Personalized LED Light Box</option>
+                    <option value="Custom Vehicle Parts / Mounts">Custom Vehicle Parts / Mounts</option>
+                    <option value="Branded Keychains / Bulk Merch">Branded Keychains / Bulk Merch</option>
+                    <option value="3D Modeling / CAD Drafting Service">Need 3D CAD Design from Scratch</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-slate-300 mb-1.5">Drive / Cloud File Link (Optional)</label>
+                  <input type="url" id="contactDriveLink" placeholder="Google Drive, WeTransfer, Printables" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-slate-300 mb-1.5">Project Details & Dimensions *</label>
+                <textarea id="contactMessage" rows="3" required placeholder="Tell us about size, required strength, color preference, or target timeline..." class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition"></textarea>
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold flex items-center justify-center gap-2 shadow-glow hover:scale-[1.01] active:scale-[0.99] transition-all">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span>Submit Inquiry via WhatsApp</span>
+                </button>
+              </div>
+            </form>
+
+            <!-- Success notification modal / box -->
+            <div id="formSuccessMessage" class="hidden mt-4 p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4 flex-shrink-0"></i>
+              <span>Generating your message and opening WhatsApp chat...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-[#060911] text-slate-400 text-xs py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+        </div>
+        <span class="font-display font-bold text-white text-base">AnyMaker<span class="text-cyan-400">3D</span></span>
+        <span class="text-slate-500">| Rapid Fabrication Studio</span>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-6">
+        <a href="#hero" class="hover:text-cyan-400 transition-colors">Home</a>
+        <a href="#catalog" class="hover:text-cyan-400 transition-colors">Catalog</a>
+        <a href="#calculator" class="hover:text-cyan-400 transition-colors">Quote Estimator</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+      </div>
+
+      <p class="text-slate-500">
+        &copy; <span id="currentYear"></span> AnyMaker 3D. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <a href="https://wa.me/919876543210?text=Hi%20AnyMaker%203D!%20I%20would%20like%20to%20get%20a%20quote%20for%20a%20custom%20print." target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white p-3.5 sm:px-4 sm:py-3 rounded-full shadow-2xl hover:shadow-emerald-500/50 hover:scale-105 active:scale-95 transition-all">
+      <i data-lucide="message-circle" class="w-6 h-6"></i>
+      <span class="hidden sm:inline font-semibold text-xs pr-1">Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Set Dynamic Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Product Category Filter Logic
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active styling from all buttons
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-cyan-500', 'text-white', 'shadow-glow', 'active');
+          b.classList.add('bg-slate-800/80', 'text-slate-300');
+        });
+        // Add active style to clicked button
+        btn.classList.add('bg-cyan-500', 'text-white', 'shadow-glow', 'active');
+        btn.classList.remove('bg-slate-800/80', 'text-slate-300');
+
+        const filterValue = btn.getAttribute('data-filter');
+
+        productCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filterValue === 'all' || category === filterValue) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Interactive Instant Quote Calculator Logic
+    let currentMaterial = 'PLA';
+    let currentSize = 'medium';
+
+    const calcType = document.getElementById('calcType');
+    const calcInfill = document.getElementById('calcInfill');
+    const calcQty = document.getElementById('calcQty');
+    const estimatedPriceEl = document.getElementById('estimatedPrice');
+    const recapItemEl = document.getElementById('recapItem');
+    const recapSpecEl = document.getElementById('recapSpec');
+    const recapScaleEl = document.getElementById('recapScale');
+    const recapQtyEl = document.getElementById('recapQty');
+    const sendQuoteBtn = document.getElementById('sendQuoteWhatsapp');
+
+    // Material Selection Click handler
+    const matBtns = document.querySelectorAll('.mat-btn');
+    matBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        matBtns.forEach(b => {
+          b.classList.remove('active', 'border-cyan-400', 'bg-cyan-950/40', 'text-cyan-300');
+          b.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-400');
+        });
+        btn.classList.add('active', 'border-cyan-400', 'bg-cyan-950/40', 'text-cyan-300');
+        btn.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-400');
+        currentMaterial = btn.getAttribute('data-mat');
+        calculateEstimate();
+      });
+    });
+
+    // Size Selection Click handler
+    const sizeBtns = document.querySelectorAll('.size-btn');
+    sizeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        sizeBtns.forEach(b => {
+          b.classList.remove('active', 'border-cyan-400', 'bg-cyan-950/40', 'text-cyan-300');
+          b.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-400');
+        });
+        btn.classList.add('active', 'border-cyan-400', 'bg-cyan-950/40', 'text-cyan-300');
+        btn.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-400');
+        currentSize = btn.getAttribute('data-size');
+        calculateEstimate();
+      });
+    });
+
+    function calculateEstimate() {
+      // Base rates by type
+      const typeRates = {
+        keychain: 120,
+        ledbox: 850,
+        auto: 400,
+        prototype: 350,
+        cosplay: 1200
+      };
+
+      // Multipliers
+      const sizeMultipliers = {
+        small: 0.75,
+        medium: 1.2,
+        large: 2.2
+      };
+
+      const matMultipliers = {
+        PLA: 1.0,
+        PETG: 1.25,
+        TPU: 1.45
+      };
+
+      const infillMultipliers = {
+        light: 0.9,
+        medium: 1.1,
+        heavy: 1.4
+      };
+
+      const selectedType = calcType.value;
+      const selectedInfill = calcInfill.value;
+      const qty = Math.max(1, parseInt(calcQty.value) || 1);
+
+      const base = typeRates[selectedType] || 350;
+      const sizeMult = sizeMultipliers[currentSize] || 1;
+      const matMult = matMultipliers[currentMaterial] || 1;
+      const infillMult = infillMultipliers[selectedInfill] || 1;
+
+      // Unit Calculation
+      let unitPrice = base * sizeMult * matMult * infillMult;
+      
+      // Volume discount for larger orders
+      if (qty >= 5) unitPrice *= 0.9; // 10% off
+      if (qty >= 20) unitPrice *= 0.85; // 15% off
+
+      const totalPrice = Math.round(unitPrice * qty);
+      estimatedPriceEl.textContent = totalPrice.toLocaleString('en-IN');
+
+      // Update Recap display
+      const selectedTypeLabel = calcType.options[calcType.selectedIndex].text.split('/')[0].trim();
+      recapItemEl.textContent = selectedTypeLabel;
+      
+      const infillLabels = { light: '20%', medium: '50%', heavy: '90%' };
+      recapSpecEl.textContent = `${currentMaterial} (${infillLabels[selectedInfill]} Infill)`;
+      
+      const sizeLabels = { small: 'Small (<8cm)', medium: 'Medium (8-16cm)', large: 'Large (16-25cm)' };
+      recapScaleEl.textContent = sizeLabels[currentSize];
+      recapQtyEl.textContent = `${qty} Unit(s)`;
+    }
+
+    // Attach listeners for inputs
+    calcType.addEventListener('change', calculateEstimate);
+    calcInfill.addEventListener('change', calculateEstimate);
+    calcQty.addEventListener('input', calculateEstimate);
+
+    // Initial calculation run
+    calculateEstimate();
+
+    // WhatsApp Transfer from Calculator
+    sendQuoteBtn.addEventListener('click', () => {
+      const typeText = calcType.options[calcType.selectedIndex].text;
+      const infillText = calcInfill.options[calcInfill.selectedIndex].text;
+      const qty = calcQty.value || 1;
+      const price = estimatedPriceEl.textContent;
+
+      const message = `Hello AnyMaker 3D! I generated a custom 3D printing estimate on your website:%0A%0A` +
+        `• *Category:* ${encodeURIComponent(typeText)}%0A` +
+        `• *Material:* ${encodeURIComponent(currentMaterial)}%0A` +
+        `• *Size Tier:* ${encodeURIComponent(currentSize.toUpperCase())}%0A` +
+        `• *Infill:* ${encodeURIComponent(infillText)}%0A` +
+        `• *Quantity:* ${encodeURIComponent(qty)}%0A` +
+        `• *Estimated Cost:* ₹${price}%0A%0A` +
+        `Could you please review and let me know about timeline and delivery?`;
+
+      window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    });
+
+    // Contact Form WhatsApp Submission
+    const contactForm = document.getElementById('contactForm');
+    const formSuccessMessage = document.getElementById('formSuccessMessage');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      const service = document.getElementById('contactService').value;
+      const driveLink = document.getElementById('contactDriveLink').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+
+      let waText = `Hi AnyMaker 3D! New order inquiry from website:%0A%0A` +
+        `• *Name:* ${encodeURIComponent(name)}%0A` +
+        `• *Phone:* ${encodeURIComponent(phone)}%0A` +
+        `• *Service:* ${encodeURIComponent(service)}%0A` +
+        `• *Details:* ${encodeURIComponent(message)}`;
+
+      if (driveLink) {
+        waText += `%0A• *Model File Link:* ${encodeURIComponent(driveLink)}`;
+      }
+
+      formSuccessMessage.classList.remove('hidden');
+      setTimeout(() => {
+        window.open(`https://wa.me/919876543210?text=${waText}`, '_blank');
+      }, 700);
+    });
+  </script>
+</body>
+</html>
